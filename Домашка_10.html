@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	
+</head>
+<body id = "main">
+	<script>
+		function loadNewScript(src) {
+			return new Promise(function(resolve, reject) {
+				let script = document.createElement('script');
+				script.src = src;
+
+				script.onload = () => resolve(script);
+				script.onerror = () => reject(new Error(`Script download error! ${src}`));
+
+				document.head.append(script);
+			})
+		}
+
+		loadNewScript('myHomeWorkScript.js')
+		.then(function(script) {
+			return loadNewScript('script1.js');
+		})
+		.then(function(script) {
+			return loadNewScript('script2.js');
+		})
+		.then(function(script) {
+			createDiv();
+			script1();
+			script2();
+		})
+		.catch(err => alert(err));
+		
+	</script>
+</body>
+</html>

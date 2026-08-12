@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link rel="stylesheet" href="myHomeWorkCSS.css">
+</head>
+<body id = "main">
+	<script>
+		function loadNewSript(src) {
+			return new Promise(function(resolve, rject) {
+				let script = document.createElement('script');
+				script.src = src;
+
+				script.onload = () => resolve(script);
+				script.onerror = () => rject(new Error(`Script download error! ${src}`));
+
+				document.head.append(script);
+			})
+		}
+
+		let promise = loadNewSript("myHomeWorkScript.js");
+		promise.then(
+			function(result) {
+				veryShortFunction();
+			})
+			promise.catch(alert);
+		
+	</script>
+</body>
+</html>
