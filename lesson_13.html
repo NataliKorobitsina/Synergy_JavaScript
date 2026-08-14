@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    let requestOpen = indexedDB.open('app',1);
+    requestOpen.onerror = function(event) {
+        console.log("Error", requestOpen.error);
+    };
+    requestOpen.onsuccess = function(event) {
+        db = requestOpen.result;
+        console.log('Мы внутри БД!');
+    };
+    requestOpen.onupgradeneeded = function(event) {
+        db = requestOpen.result;
+        console.log('Мы в обработчике обновления!');
+        db.createObjectStore('books', {autoIncrement: true});
+        console.log('Хранилище успешно создано!');
+        db.deleteObjectStore('books');
+
+    };
+</script>
+</html>
