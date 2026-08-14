@@ -15,7 +15,25 @@
         console.log("Error", requestOpen.error);
     };
     requestOpen.onsuccess = function(event) {
+        db = requestOpen.result;
+        console.log('Мы внутри БД!');
 
+        let transaction = db.transaction("bookStore", "readwrite");
+        let books = transaction.objectStore("bookStore");
+
+        let book = {
+            title: "War and piece",
+            cost: 25,
+            created: new Date(),
+        };
+        
+        let request = books.add(book);
+        request.onsuccess = function() {
+            console.log('Книга успешно добавлена', request.result);
+        };
+        request.onerror = function() {
+            console.log('Ошибка', request.error);
+        };
     };
     requestOpen.onupgradeneeded = function(event) {
         db = requestOpen.result;
