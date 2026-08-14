@@ -9,20 +9,27 @@
 
 </body>
 <script>
-    let requestOpen = indexedDB.open('app',1);
+    let requestOpen = indexedDB.open('app', 4);
+
     requestOpen.onerror = function(event) {
         console.log("Error", requestOpen.error);
     };
     requestOpen.onsuccess = function(event) {
-        db = requestOpen.result;
-        console.log('Мы внутри БД!');
+
     };
     requestOpen.onupgradeneeded = function(event) {
         db = requestOpen.result;
-        console.log('Мы в обработчике обновления!');
-        db.createObjectStore('books', {autoIncrement: true});
-        console.log('Хранилище успешно создано!');
-        db.deleteObjectStore('books');
+        switch(event.oldVersion) {
+            case 0:
+                console.log('БД иницилизирована!');
+            case 1:
+                db.createObjectStore('books', {autoIncrement: true});
+                console.log('Хранилище успешно создано!');
+            case 2:
+                db.deleteObjectStore('books');
+            case 3:
+                db.createObjectStore('bookStore', {autoIncrement: true});
+        };
 
     };
 </script>
