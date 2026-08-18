@@ -1,52 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
 </body>
 <script>
     let requestOpen = indexedDB.open('app', 4);
 
-    requestOpen.onerror = function(event) {
-        console.log("Error", requestOpen.error);
-    };
-    requestOpen.onsuccess = function(event) {
-        db = requestOpen.result;
-        console.log('Мы внутри БД!');
-
-        let transaction = db.transaction("bookStore", "readwrite");
-        let books = transaction.objectStore("bookStore");
-
-        let book = {
-            title: "War and piece",
-            cost: 25,
-            created: new Date(),
-        };
-        
-        let request = books.add(book);
-        request.onsuccess = function() {
-            console.log('Книга успешно добавлена', request.result);
-        };
-        request.onerror = function() {
-            console.log('Ошибка', request.error);
-        };
-    };
-    requestOpen.onupgradeneeded = function(event) {
-        db = requestOpen.result;
-        switch(event.oldVersion) {
+    requestOpen.onupgradeneeded = function (event) {
+    db = requestOpen.result;
+        switch (event.oldVersion) {
             case 0:
                 console.log('БД иницилизирована!');
             case 1:
-                db.createObjectStore('books', {autoIncrement: true});
+                db.createObjectStore('books', { autoIncrement: true });
                 console.log('Хранилище успешно создано!');
             case 2:
                 db.deleteObjectStore('books');
             case 3:
-                db.createObjectStore('bookStore', {autoIncrement: true});
+                db.createObjectStore('bookStore', { autoIncrement: true });
+        };
+    };
+
+    requestOpen.onerror = function (event) {
+        console.log("Error", requestOpen.error);
+    };
+
+    requestOpen.onsuccess = function (event) {
+        db = requestOpen.result;
+        console.log('Мы внутри БД!');
+
+        let transaction = db.transaction("bookStore", "readwrite");
+        let bookStore = transaction.objectStore("bookStore");
+
+        /*let book = {
+            title: "JS",
+            cost: 55,
+            created: new Date(),
+        };
+
+        let request = bookStore.add(book);
+        request.onsuccess = function() {
+            console.log('Книга успешно добавлена', request.result);
+        };
+        request.onerror = function() {
+            console.log('Ошибка', request.error);*/
+
+        // поиск одной книги по ключу
+        let request1 = bookStore.get(1);
+        request1.onsuccess = function () {
+            console.log('Книга найдена!', request1.result);
+        };
+        request1.onerror = function () {
+            console.log('Ошибка!', request1.error);
+        };
+
+        //получение книг в диапазоне
+        let request2 = bookStore.getAll(IDBKeyRange.upperBound(5, true));
+        request2.onsuccess =function() {
+            console.log('Книги в диапазоне найдены!', request2.result);
+        };
+        request2.onerror = function() {
+            console.log('Ошибка!', request2.error);
+        };
+
+        //получение всех книг
+        let request3 = bookStore.getAll();
+        request3.onsuccess =function() {
+            console.log('Книги найдены!', request3.result);
+        };
+        request3.onerror = function() {
+            console.log('Ошибка!', request3.error);
         };
 
     };
