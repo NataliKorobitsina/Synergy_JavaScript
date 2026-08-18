@@ -14,7 +14,7 @@
     let requestOpen = indexedDB.open('app', 5);
 
     requestOpen.onupgradeneeded = function (event) {
-    db = requestOpen.result;
+        db = requestOpen.result;
         switch (event.oldVersion) {
             case 0:
                 console.log('БД иницилизирована!');
@@ -40,12 +40,12 @@
         db = requestOpen.result;
         console.log('Мы внутри БД!');
 
-        let transaction = db.transaction("bookStore", "readwrite");
+        /*let transaction = db.transaction("bookStore", "readwrite");
         let bookStore = transaction.objectStore("bookStore");
 
-        /*let book = {
-            title: "CSS",
-            cost: 42,
+        let book = {
+            title: "JS",
+            cost: 15,
             created: new Date(),
         };
 
@@ -83,6 +83,31 @@
             console.log('Ошибка!', request3.error);
         };*/
 
+        let transaction = db.transaction("bookStore", "readwrite");
+        let bookStore = transaction.objectStore("bookStore");
+        let indexCost = bookStore.index("indexCost");
+
+        let request = indexCost.getKey(42);
+
+        request.onsuccess = function() {
+            if (request.result !== undefined) {
+                console.log("Результат: ", request.result);
+                //let requestDelete = bookStore.delete(request.result);
+            } else {
+                console.log("Нет таких книг");
+            };
+        };
+
     };
+
+    //удаление БД
+    /*let requestDelete = indexedDB.deleteDatabase('app');
+    requestDelete.onsuccess = function() {
+        console.log("БД удалена");
+    };
+    requestDelete.onerror = function() {
+        console.log("Не удалось удалить БД");
+    };*/
+
 </script>
 </html>
