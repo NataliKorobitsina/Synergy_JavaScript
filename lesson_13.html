@@ -11,7 +11,7 @@
 
 </body>
 <script>
-    let requestOpen = indexedDB.open('app', 4);
+    let requestOpen = indexedDB.open('app', 5);
 
     requestOpen.onupgradeneeded = function (event) {
     db = requestOpen.result;
@@ -25,6 +25,10 @@
                 db.deleteObjectStore('books');
             case 3:
                 db.createObjectStore('bookStore', { autoIncrement: true });
+            case 4:
+                db.deleteObjectStore('bookStore');
+            let bookStore = db.createObjectStore('bookStore', { autoIncrement: true });
+            let index = bookStore.createIndex('indexCost', 'cost');
         };
     };
 
@@ -40,8 +44,8 @@
         let bookStore = transaction.objectStore("bookStore");
 
         /*let book = {
-            title: "JS",
-            cost: 55,
+            title: "CSS",
+            cost: 42,
             created: new Date(),
         };
 
@@ -53,16 +57,16 @@
             console.log('Ошибка', request.error);*/
 
         // поиск одной книги по ключу
-        let request1 = bookStore.get(1);
+        /*let request1 = bookStore.get(1);
         request1.onsuccess = function () {
             console.log('Книга найдена!', request1.result);
         };
         request1.onerror = function () {
             console.log('Ошибка!', request1.error);
-        };
+        };*/
 
         //получение книг в диапазоне
-        let request2 = bookStore.getAll(IDBKeyRange.upperBound(5, true));
+        /*let request2 = bookStore.getAll(IDBKeyRange.upperBound(5, true));
         request2.onsuccess =function() {
             console.log('Книги в диапазоне найдены!', request2.result);
         };
@@ -77,7 +81,7 @@
         };
         request3.onerror = function() {
             console.log('Ошибка!', request3.error);
-        };
+        };*/
 
     };
 </script>
