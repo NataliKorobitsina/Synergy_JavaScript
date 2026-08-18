@@ -92,7 +92,7 @@
         request.onsuccess = function() {
             if (request.result !== undefined) {
                 console.log("Результат: ", request.result);
-                //let requestDelete = bookStore.delete(request.result);
+                let requestDelete = bookStore.delete(request.result);
             } else {
                 console.log("Нет таких книг");
             };
