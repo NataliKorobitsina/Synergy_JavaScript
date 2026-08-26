@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Employee {
+            constructor(name, surname, stavka, numOfDays) {
+                this.name = name;
+                this.surname = surname;
+                this.stavka = stavka;
+                this.numOfDays = numOfDays;
+            };
+            getSalary() {
+                let salary = this.numOfDays * this.stavka;
+                console.log(`Зарплата: ${salary}.`)
+            };
+        };
+
+        class Employee1 extends Employee {
+            constructor(name, surname, stavka, numOfDays) {
+                super(name, surname, stavka, numOfDays);
+                
+            }
+        }
+
+        let employee = new Employee('Иван', 'Иванов', 1, 20);
+        console.log(employee);
+        console.log(employee.getSalary());
+    </script>
+</body>
+
+</html>
