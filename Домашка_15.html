@@ -17,21 +17,64 @@
                 this.numOfDays = numOfDays;
             };
             getSalary() {
-                let salary = this.numOfDays * this.stavka;
-                console.log(`Зарплата: ${salary}.`)
+                if (this.stavka > 0 && this.numOfDays > 0) {
+                    let salary = this.numOfDays * this.stavka;
+                return `Зарплата: ${salary}.`
+                }
+                return `Данных для рассчета недостаточно`
             };
         };
 
         class Employee1 extends Employee {
             constructor(name, surname, stavka, numOfDays) {
                 super(name, surname, stavka, numOfDays);
-                
-            }
-        }
+
+            };
+            get name() {
+                return this._name;
+            };
+            get surname() {
+                return this._surname;
+            };
+            get stavka() {
+                return this._stavka;
+            };
+            get numOfDays() {
+                return this._numOfDays;
+            };
+            set name(value) {
+                if (value != this.name) {
+                    this._name = value;
+                    return;
+                };
+            };
+            set surname(value) {
+                if (value != this.surname) {
+                    this._surname = value;
+                    return;
+                };
+            };
+            set stavka(value) {
+                if (value != this.stavka) {
+                    this._stavka = value;
+                    return;
+                };
+            };
+            set numOfDays(value) {
+                if (value != this.numOfDays) {
+                    this._numOfDays = value;
+                    return;
+                };
+            };
+
+        };
 
         let employee = new Employee('Иван', 'Иванов', 1, 20);
-        console.log(employee);
-        console.log(employee.getSalary());
+        console.log(employee); //все свойства
+        console.log(employee.getSalary()); //зарплата
+        let employee1 = new Employee1('Peter', 'Petrov', 1)
+        console.log(employee1.getSalary());
+
     </script>
 </body>
 
