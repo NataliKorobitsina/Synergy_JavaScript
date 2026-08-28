@@ -12,6 +12,28 @@
         heading.textContent = 'Hello World!';
         //heading.innerHTML = 'Hello World!';
         document.body.append(heading);
+
+        //задание 2
+        let employeeList = document.createElement('ol');
+        let employees = [
+            {firstName: 'Иван', lastName: 'Иванов' },
+            {firstName: 'Пётр', lastName: 'Петров' },
+            {firstName: 'Анна', lastName: 'Сидорова' },
+            {firstName: 'Роза', lastName: 'Люксембург' },
+            {firstName: 'Лиза', lastName: 'Чайкина' },
+        ];
+        /*for (let i = 0; i < employees.length; i++) {
+            let employee = employees[i];
+            let li = document.createElement('li');
+            li.textContent = employee.firstName + ' ' + employee.lastName;
+            employeeList.append(li);
+        };*/
+        for (let employee of employees) {
+            let li = document.createElement('li');
+            li.textContent = employee.firstName + ' ' + employee.lastName;
+            employeeList.append(li);
+        }
+        document.body.append(employeeList);
 	</script>
 </body>
 </html>
