@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложение_заметок</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="app">
+        <h1>📝 Мои заметки</h1>
+        <div class="input-area">
+            <textarea id="textInput" autocomplete="off" placeholder="Введите заметку"></textarea>
+            <br>
+            <button onclick="localStorage.getItem('textInput')" id="add">Добавить</button>
+        </div>
+        <div id="notesContainer" class="notes-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

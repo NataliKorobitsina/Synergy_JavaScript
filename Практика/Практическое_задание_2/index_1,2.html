@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание_1</title>
+</head>
+
+<body>
+    <script>
+        class Oven {
+            constructor(maxTemp = 15) {
+                this.maxTemp = maxTemp;
+            }
+            get maxTemp() {
+                return this._maxTemp;
+            }
+            set maxTemp(value) {
+                if (value <= 15) {
+                    this._maxTemp = value;
+                } else {
+                    console.log('Температура должна быть меньше или равна 15')
+                }
+            }
+        }
+
+        let myOven = new Oven(14);
+        console.log(myOven.maxTemp);
+
+        //Задание_2
+        class BetterOven extends Oven {
+            constructor(maxTemp) {
+                super(maxTemp);
+                this._currentTemp = 0;
+                this._heatingInterval = null;
+            }
+
+            turnOn() {
+                console.log('Внимание! Запущен нагрев');
+                this._heatingInterval = setInterval(() => {
+                    this._currentTemp++;
+                    if (this._currentTemp >= this.maxTemp) {
+                        console.log('Печь нагрета');
+                        clearInterval(this._heatingInterval);
+                        this.turnOff();
+                    }
+                }, 500);
+            }
+
+             turnOff() {
+                console.log('Печь выключена');
+                const coolingInterval = setInterval(() => {
+                    this._currentTemp--;
+                    if (this._currentTemp <= 0) {
+                        this._currentTemp = 0;            
+                        clearInterval(coolingInterval);  
+                        console.log('Печь остыла и прекращает работу');
+                     }
+                }, 500);
+            }
+        }
+        
+
+
+        let myBetterOven = new BetterOven(10);
+        console.log(myBetterOven.maxTemp);
+        myBetterOven.turnOn();
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание_4</title>
+</head>
+<body>
+    <script>
+        const calculator = {
+            _check (a, b) {
+                if (typeof a !== 'number' || typeof b !== 'number') {
+                    return 'Введите число!';
+                };
+                if (isNaN(a) || isNaN(b)) {
+                    return 'Введите число!';
+                };
+                return null;
+            },
+            add (a, b) {
+                const error = this._check(a, b);
+                if (error) return error;
+                return (a + b);
+            },
+            subtract (a, b) {
+                const error = this._check(a, b);
+                if (error) return error;
+                return (a - b);
+            },
+            multiply (a, b) {
+                const error = this._check(a, b);
+                if (error) return error;
+                return (a * b);
+            },
+            divide (a, b) {
+                const error = this._check(a, b);
+                if (error) return error;
+                if (b === 0) {
+                    return "Деление на ноль!";
+                };
+                return (a / b);
+            },
+        };
+
+        console.log(calculator.add('t', 4));
+        console.log(calculator.add(17, 60));
+        console.log(calculator.subtract(5, 9));
+        console.log(calculator.subtract(34, NaN));
+        console.log(calculator.multiply(-2, 12));
+        console.log(calculator.multiply(0, 256));
+        console.log(calculator.divide(58, 0));
+        console.log(calculator.divide(12, -8));
+    </script>
+</body>
+</html>

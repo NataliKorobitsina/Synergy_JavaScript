@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание_5</title>
+</head>
+<body>
+    <script>
+        const textInput = document.createElement('input');
+        textInput.type = "text";
+        textInput.placeholder = 'Введите текст';
+        document.body.append(textInput);
+
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'Сохранить';
+        document.body.append(saveButton);
+
+        saveButton.addEventListener('click', function() {
+            localStorage.setItem('Text', textInput.value);
+        
+            setTimeout(function () {
+                const savedText = localStorage.getItem('Text');
+                console.log('Сохранённый текст:', savedText);
+            }, 2000);
+        });
+        
+    </script>
+</body>
+</html>
