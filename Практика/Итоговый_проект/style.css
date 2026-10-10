@@ -60,13 +60,6 @@ h1 {
     background: #234f77;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: #999;
-    font-size: 16px;
-}
-
 .notes-container {
     display: flex;
     flex-direction: column;
@@ -75,6 +68,17 @@ h1 {
 
 .empty-state {
     text-align: center;
-    padding: 30px 10px;
+    padding: 40px 20px;
     color: #999;
+
 }
+
+.note {
+    background: #e8e8f1;
+    border-left: 4px solid #a7c8e7;
+    border-radius: 8px;
+    padding: 12px 16px;
+    
+    color: #333;
+}
+
