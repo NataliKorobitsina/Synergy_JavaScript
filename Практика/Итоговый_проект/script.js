@@ -22,6 +22,9 @@ addBtn.addEventListener('click', function () {
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = '🗑️';
+    deleteBtn.addEventListener('click', function () {
+        noteEl.remove();
+    });
 
     notesContainer.appendChild(noteEl);
 
