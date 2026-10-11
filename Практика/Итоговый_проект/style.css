@@ -109,3 +109,48 @@ h1 {
 .delete-btn:hover {
     background: #f4a4a4;
 }
+
+.edit-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #4ca3f4;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    min-height: 80px;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.save-btn, .cancel-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.save-btn {
+    background: #2ed07a;
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background: #43a047;
+}
+
+.cancel-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background: #d5d5d5;
+}
