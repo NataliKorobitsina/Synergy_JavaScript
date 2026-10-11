@@ -1,8 +1,8 @@
 const noteInput = document.getElementById('noteInput');
 const addBtn = document.getElementById('addBtn');
 const notesContainer = document.getElementById('notesContainer');
+const emptyState = document.querySelector('.empty-state');
 
-//const STORAGE_KEY = 'notes_data';
 let notes = [];
 
 function saveNotes() {
@@ -86,6 +86,7 @@ function renderNote(note) {
         notes = notes.filter(n => n.id !== note.id);
         saveNotes();
         noteEl.remove();
+        updateEmptyState();
     });
 
     noteEl.appendChild(textEl);
@@ -96,6 +97,14 @@ function renderNote(note) {
     
     notesContainer.prepend(noteEl);
 };
+
+function updateEmptyState() {
+    if (notes.length === 0) {
+        emptyState.style.display = '';   // показать
+    } else {
+        emptyState.style.display = 'none';   // скрыть
+    }
+}
 
 addBtn.addEventListener('click', function () {
     const text = noteInput.value;
@@ -109,7 +118,9 @@ addBtn.addEventListener('click', function () {
     saveNotes();
     renderNote(newNote);
     noteInput.value = '';
+    updateEmptyState();
 });
 
 notes = loadNotes();
 notes.forEach(note => renderNote(note));
+updateEmptyState();
