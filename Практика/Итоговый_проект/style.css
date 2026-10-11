@@ -74,7 +74,7 @@ h1 {
 }
 
 .note {
-    background: #e8e8f1;
+    background: #efeff4;
     border-left: 4px solid #a7c8e7;
     border-radius: 8px;
     padding: 12px 16px;
@@ -82,3 +82,30 @@ h1 {
     color: #333;
 }
 
+.note-text {
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.note-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.edit-btn, .delete-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: #efeff4;
+    transition: background 0.2s;
+}
+
+.edit-btn:hover {
+    background: #4cf49a;
+}
+
+.delete-btn:hover {
+    background: #f4a4a4;
+}
