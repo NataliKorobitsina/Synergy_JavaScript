@@ -2,23 +2,34 @@ const noteInput = document.getElementById('noteInput');
 const addBtn = document.getElementById('addBtn');
 const notesContainer = document.getElementById('notesContainer');
 
-addBtn.addEventListener('click', function () {
-    const text = noteInput.value;
+//const STORAGE_KEY = 'notes_data';
+let notes = [];
 
+function saveNotes() {
+    localStorage.setItem('myStorage', JSON.stringify(notes));
+};
+
+function loadNotes() {
+    const data = localStorage.getItem('myStorage');
+    return data ? JSON.parse(data) : [];
+};
+
+function renderNote(note) {
     const noteEl = document.createElement('div'); // блок/элемент заметки
     noteEl.className = 'note';
+    noteEl.dataset.id = note.id;   
 
     const textEl = document.createElement('div'); // текст в заметке
     textEl.className = 'note-text';
-    textEl.textContent = text;
+    textEl.textContent = note.text;
 
     const actionsEl = document.createElement('div'); // кнопки в блоке заметки
     actionsEl.className = 'note-actions';
 
-    // кнопка "редактировать"
-    const editBtn = document.createElement('button');
+    const editBtn = document.createElement('button'); // кнопка "редактировать"
     editBtn.className = 'edit-btn';
     editBtn.textContent = '✏️';
+
     editBtn.addEventListener('click', function() {
         textEl.style.display = 'none';
         actionsEl.style.display = 'none';
@@ -53,32 +64,52 @@ addBtn.addEventListener('click', function () {
 
         saveBtn.addEventListener('click', function () {
             const newText = textarea.value; // редактированный текст в заметке
+            const target = notes.find(n => n.id === note.id);
+            if (target) {
+                target.text = newText;
+            };
+            saveNotes();
+
             textEl.textContent = newText;
             textEl.style.display = '';
             actionsEl.style.display = '';
             textarea.remove();
             editActions.remove();
         });
-
-
     });
 
-    // кнопка "удалить"
-    const deleteBtn = document.createElement('button');
+    const deleteBtn = document.createElement('button'); // кнопка "удалить"
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = '🗑️';
+
     deleteBtn.addEventListener('click', function () {
+        notes = notes.filter(n => n.id !== note.id);
+        saveNotes();
         noteEl.remove();
     });
-
-    notesContainer.appendChild(noteEl);
 
     noteEl.appendChild(textEl);
     noteEl.appendChild(actionsEl);
 
     actionsEl.appendChild(editBtn);
     actionsEl.appendChild(deleteBtn);
+    
+    notesContainer.prepend(noteEl);
+};
 
+addBtn.addEventListener('click', function () {
+    const text = noteInput.value;
+
+    // объект заметки
+    const newNote = {
+        id: Date.now().toString(),
+        text: text
+    };
+    notes.push(newNote);
+    saveNotes();
+    renderNote(newNote);
     noteInput.value = '';
 });
 
+notes = loadNotes();
+notes.forEach(note => renderNote(note));
