@@ -83,10 +83,13 @@ function renderNote(note) {
     deleteBtn.textContent = '🗑️';
 
     deleteBtn.addEventListener('click', function () {
-        notes = notes.filter(n => n.id !== note.id);
-        saveNotes();
-        noteEl.remove();
-        updateEmptyState();
+        noteEl.classList.add('removing');
+        noteEl.addEventListener('animationend', function () {
+            notes = notes.filter(n => n.id !== note.id);
+            saveNotes();
+            noteEl.remove();
+            updateEmptyState();
+        }, { once: true });
     });
 
     noteEl.appendChild(textEl);
